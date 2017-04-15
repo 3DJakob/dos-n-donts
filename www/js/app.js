@@ -45,16 +45,28 @@ function done (assignment) {
   }
 }
 
+function renderList (target, items, color) {
+  target.innerHTML = ''
+
+  items.forEach(function (item) {
+    var li = document.createElement('li')
+    var btn = document.createElement('button')
+
+    btn.addEventListener('click', function () {
+      done(item)
+    })
+
+    li.style.color = color
+    li.textContent = item
+    btn.textContent = '✓'
+
+    li.appendChild(btn)
+    target.appendChild(li)
+  })
+}
+
 function render () {
-  var htmlDos = ''
-  var htmlDonts = ''
-  dos.forEach(function (item) {
-    htmlDos = htmlDos + '<li style="color: #89d877;">' + item + '<button type="button" name="button" onclick="done(\'' + item + '\')">&#x2713;</button></li>'
-  })
-  donts.forEach(function (item) {
-    htmlDonts = htmlDonts + '<li style="color: #f47442;">' + item + '<button type="button" name="button" onclick="done(\'' + item + '\')">&#x2713;</button></li>'
-  })
-  doElement.innerHTML = htmlDos
-  dontElement.innerHTML = htmlDonts
+  renderList(doElement, dos, '#89d877')
+  renderList(dontElement, donts, '#f47442')
   document.getElementById('input').value = ''
 }
