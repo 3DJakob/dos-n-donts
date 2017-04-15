@@ -6,6 +6,17 @@ var dontElement = document.getElementById('donts')
 function add (type) {
   var input = document.getElementById('input').value
 
+  dos.forEach(function (name) {
+    if (name === input) {
+      input = ''
+    }
+  })
+  donts.forEach(function (name) {
+    if (name === input) {
+      input = ''
+    }
+  })
+
   if (input === '') {
     document.getElementById('input').style.background = 'rgba(255, 170, 150, 1)'
   } else {
@@ -26,7 +37,7 @@ function done (assignment) {
       render()
     }
   }
-  for (var i = 0; i < donts.length; i++) {
+  for (i = 0; i < donts.length; i++) {
     if (donts[i] === assignment) {
       donts.splice(i, 1)
       render()
