@@ -1,7 +1,28 @@
 var dos = []
 var donts = []
+var dosStorage
+var dontsStorage
 var doElement = document.getElementById('dos')
 var dontElement = document.getElementById('donts')
+
+function storageWrite () {
+  dosStorage = JSON.stringify(dos)
+  dontsStorage = JSON.stringify(donts)
+  localStorage.setItem("dos", dosStorage)
+  localStorage.setItem("donts", dontsStorage)
+}
+
+function storageRead () {
+  dos = JSON.parse(localStorage.getItem("dos"))
+  if (dos === null) {
+    dos = []
+  }
+  donts = JSON.parse(localStorage.getItem("donts"))
+  if (donts === null) {
+    donts = []
+  }
+  render()
+}
 
 function add (type) {
   var input = document.getElementById('input').value
@@ -26,6 +47,7 @@ function add (type) {
     } else if (type === 'dont') {
       donts.push(input)
     }
+    storageWrite()
     render()
   }
 }
@@ -43,6 +65,7 @@ function done (assignment) {
       render()
     }
   }
+  storageWrite()
 }
 
 function renderList (target, items, color) {
